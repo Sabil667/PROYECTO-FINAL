@@ -5,65 +5,20 @@ public class PoblacionBacterias {
     private int numeroBacterias;
     private double temperatura;
     private String luminosidad;
-    private double cantidadComida;
-
-    private static final double COMIDA_POR_BACTERIA = 0.1; // Cantidad de comida que consume cada bacteria por día
-    private static final double REPRODUCCION_POR_BACTERIA = 0.2; // Cantidad de nuevas bacterias que se generan por cada bacteria existente por día, si hay suficiente comida
-    private static final int MAX_CRECIMIENTO_DIARIO = 10; // Máximo crecimiento diario de las bacterias
-    private static final int MAX_DECREMENTO_DIARIO = 10; // Máximo decremento diario de las bacterias
-
+    private static final double COMIDA_POR_BACTERIA = 0.5;
+    private static final double REPRODUCCION_POR_BACTERIA = 0.1;
+    private static final int MAX_DECREMENTO_DIARIO = 10;
+    private static final int MAX_CRECIMIENTO_DIARIO = 10;
     private Random random = new Random();
 
-    public PoblacionBacterias(String nombre, int numeroBacterias, double temperatura, String luminosidad, double cantidadComida) {
+    public PoblacionBacterias(String nombre, int numeroBacterias, double temperatura, String luminosidad) {
         this.nombre = nombre;
         this.numeroBacterias = numeroBacterias;
         this.temperatura = temperatura;
         this.luminosidad = luminosidad;
-        this.cantidadComida = cantidadComida;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getNumeroBacterias() {
-        return numeroBacterias;
-    }
-
-    public void setNumeroBacterias(int numeroBacterias) {
-        this.numeroBacterias = numeroBacterias;
-    }
-
-    public double getTemperatura() {
-        return temperatura;
-    }
-
-    public void setTemperatura(double temperatura) {
-        this.temperatura = temperatura;
-    }
-
-    public String getLuminosidad() {
-        return luminosidad;
-    }
-
-    public void setLuminosidad(String luminosidad) {
-        this.luminosidad = luminosidad;
-    }
-
-    public double getCantidadComida() {
-        return cantidadComida;
-    }
-
-    public void setCantidadComida(double cantidadComida) {
-        this.cantidadComida = cantidadComida;
-    }
-
-    public void pasarDia(int dia) {
-        // Las bacterias consumen comida
+    public void pasarDia(int dia, double cantidadComida) {
         double comidaConsumida = Math.min(cantidadComida, numeroBacterias * COMIDA_POR_BACTERIA);
         cantidadComida -= comidaConsumida;
 
@@ -106,10 +61,10 @@ public class PoblacionBacterias {
         }
 
         // Imprime el estado de la población de bacterias
-        System.out.println(toString(dia));
+        System.out.println(toString(dia, cantidadComida));
     }
 
-    public String toString(int dia) {
+    public String toString(int dia, double cantidadComida) {
         return "Día: " + (dia + 1) +
                 "\nNombre de la población de bacterias: " + nombre +
                 "\nNúmero de bacterias: " + numeroBacterias +

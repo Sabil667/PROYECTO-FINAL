@@ -5,12 +5,14 @@ public class Experimento {
     private String nombreArchivo;
     private List<PoblacionBacterias> poblacionesBacterias;
     private int dias;
+    private double cantidadComida;
 
     public Experimento(String nombreArchivo, String nombrePoblacion, int numeroBacterias, double temperatura, String luminosidad, double cantidadComida, int dias) {
         this.nombreArchivo = nombreArchivo;
         this.poblacionesBacterias = new ArrayList<>();
-        this.poblacionesBacterias.add(new PoblacionBacterias(nombrePoblacion, numeroBacterias, temperatura, luminosidad, cantidadComida));
+        this.poblacionesBacterias.add(new PoblacionBacterias(nombrePoblacion, numeroBacterias, temperatura, luminosidad));
         this.dias = dias;
+        this.cantidadComida = cantidadComida;
     }
 
     public String getNombreArchivo() {
@@ -25,8 +27,8 @@ public class Experimento {
         return poblacionesBacterias;
     }
 
-    public void agregarPoblacion(String nombrePoblacion, int numeroBacterias, double temperatura, String luminosidad, double cantidadComida) {
-        this.poblacionesBacterias.add(new PoblacionBacterias(nombrePoblacion, numeroBacterias, temperatura, luminosidad, cantidadComida));
+    public void agregarPoblacion(String nombrePoblacion, int numeroBacterias, double temperatura, String luminosidad) {
+        this.poblacionesBacterias.add(new PoblacionBacterias(nombrePoblacion, numeroBacterias, temperatura, luminosidad));
     }
 
     public int getDias() {
@@ -40,9 +42,9 @@ public class Experimento {
     public void realizarExperimento() {
         for (int i = 0; i < dias; i++) {
             for (PoblacionBacterias poblacionBacterias : poblacionesBacterias) {
-                poblacionBacterias.pasarDia(i);
-                System.out.println(); // Imprime una línea en blanco
+                poblacionBacterias.pasarDia(i, cantidadComida);
             }
+            System.out.println(); // Imprime una línea en blanco
         }
     }
 

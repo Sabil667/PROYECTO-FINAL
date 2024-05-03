@@ -74,8 +74,7 @@ public class Main {
                 int numeroBacterias = Integer.parseInt(JOptionPane.showInputDialog("Introduce el número inicial de bacterias:"));
                 double temperatura = Double.parseDouble(JOptionPane.showInputDialog("Introduce la temperatura:"));
                 String luminosidad = JOptionPane.showInputDialog("Introduce la condición de luminosidad:");
-                double cantidadComida = Double.parseDouble(JOptionPane.showInputDialog("Introduce la cantidad inicial de comida:"));
-                experimento.agregarPoblacion(nombrePoblacion, numeroBacterias, temperatura, luminosidad, cantidadComida);
+                experimento.agregarPoblacion(nombrePoblacion, numeroBacterias, temperatura, luminosidad);
                 JOptionPane.showMessageDialog(null, "Población añadida con éxito!");
                 break;
             case 1: // Eliminar población
