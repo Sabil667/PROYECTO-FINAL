@@ -54,25 +54,25 @@ public class Main {
                     case "Ver Experimentos":
                         Experimento experimentoSeleccionado = (Experimento) JOptionPane.showInputDialog(null, "Selecciona un experimento", "Experimentos", JOptionPane.QUESTION_MESSAGE, null, experimentos.toArray(), experimentos.get(0));
                         if (experimentoSeleccionado != null) {
-                            experimentoSeleccionado.realizarExperimento();
+                            String resultadosExperimento = experimentoSeleccionado.realizarExperimento();
 
-                            // Crea una nueva ventana para mostrar los detalles del experimento
-                            JFrame detallesFrame = new JFrame("Detalles del Experimento");
-                            detallesFrame.setSize(500, 300);
-                            detallesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                            // Crea una nueva ventana para mostrar los resultados del experimento
+                            JFrame resultadosFrame = new JFrame("Resultados del Experimento");
+                            resultadosFrame.setSize(500, 300);
+                            resultadosFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-                            // Crea un JTextArea para mostrar los detalles
+                            // Crea un JTextArea para mostrar los resultados
                             JTextArea textArea = new JTextArea();
-                            textArea.setText(experimentoSeleccionado.getDetalles());
+                            textArea.setText(resultadosExperimento);
                             textArea.setEditable(false);
 
                             // Añade el JTextArea al JFrame
-                            detallesFrame.add(new JScrollPane(textArea));
+                            resultadosFrame.add(new JScrollPane(textArea));
 
                             // Muestra la ventana
-                            detallesFrame.setVisible(true);
+                            resultadosFrame.setVisible(true);
 
-                            mostrarOpcionesPostExperimento(experimentoSeleccionado);
+                            mostrarOpcionesPostExperimento(experimentoSeleccionado, textArea);
                         }
                         break;
                 }
@@ -80,7 +80,7 @@ public class Main {
         });
     }
 
-    public static void mostrarOpcionesPostExperimento(Experimento experimento) {
+    public static void mostrarOpcionesPostExperimento(Experimento experimento, JTextArea textArea) {
         String[] opciones = {"Añadir población", "Eliminar población"};
         int seleccion = JOptionPane.showOptionDialog(null, "¿Qué te gustaría hacer?", "Opciones post-experimento",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
@@ -93,6 +93,7 @@ public class Main {
                 String luminosidad = JOptionPane.showInputDialog("Introduce la condición de luminosidad:");
                 experimento.agregarPoblacion(nombrePoblacion, numeroBacterias, temperatura, luminosidad);
                 JOptionPane.showMessageDialog(null, "Población añadida con éxito!");
+                textArea.setText(experimento.getDetalles()); // Actualiza los detalles del experimento
                 break;
             case 1: // Eliminar población
                 String[] nombresPoblaciones = experimento.getPoblacionesBacterias().stream()
@@ -107,6 +108,7 @@ public class Main {
                     if (poblacionBacterias != null) {
                         experimento.getPoblacionesBacterias().remove(poblacionBacterias);
                         JOptionPane.showMessageDialog(null, "Población eliminada con éxito!");
+                        textArea.setText(experimento.getDetalles()); // Actualiza los detalles del experimento
                     }
                 }
                 break;

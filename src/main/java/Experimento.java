@@ -39,13 +39,27 @@ public class Experimento {
         this.dias = dias;
     }
 
-    public void realizarExperimento() {
+    public String realizarExperimento() {
+        StringBuilder resultados = new StringBuilder();
         for (int i = 0; i < dias; i++) {
             for (PoblacionBacterias poblacionBacterias : poblacionesBacterias) {
-                poblacionBacterias.pasarDia(i, cantidadComida);
+                resultados.append(poblacionBacterias.pasarDia(i, cantidadComida)).append("\n");
             }
-            System.out.println(); // Imprime una línea en blanco
+            resultados.append("\n"); // Agrega una línea en blanco entre cada día
         }
+        return resultados.toString();
+    }
+
+    public String getDetalles() {
+        StringBuilder detalles = new StringBuilder();
+        detalles.append("Nombre del archivo: ").append(nombreArchivo).append("\n");
+        detalles.append("Días: ").append(dias).append("\n");
+        detalles.append("Cantidad de comida: ").append(cantidadComida).append("\n");
+        detalles.append("Poblaciones de bacterias:\n");
+        for (PoblacionBacterias poblacion : poblacionesBacterias) {
+            detalles.append(poblacion.toString()).append("\n"); // Asegúrate de que la clase PoblacionBacterias tiene un método toString() adecuado
+        }
+        return detalles.toString();
     }
 
     @Override
