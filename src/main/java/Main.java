@@ -78,10 +78,19 @@ public class Main {
                 JOptionPane.showMessageDialog(null, "Población añadida con éxito!");
                 break;
             case 1: // Eliminar población
-                PoblacionBacterias poblacionBacterias = (PoblacionBacterias) JOptionPane.showInputDialog(null, "Selecciona una población para eliminar", "Eliminar población", JOptionPane.QUESTION_MESSAGE, null, experimento.getPoblacionesBacterias().toArray(), experimento.getPoblacionesBacterias().get(0));
-                if (poblacionBacterias != null) {
-                    experimento.getPoblacionesBacterias().remove(poblacionBacterias);
-                    JOptionPane.showMessageDialog(null, "Población eliminada con éxito!");
+                String[] nombresPoblaciones = experimento.getPoblacionesBacterias().stream()
+                        .map(PoblacionBacterias::getNombre)
+                        .toArray(String[]::new);
+                String nombrePoblacionSeleccionada = (String) JOptionPane.showInputDialog(null, "Selecciona una población para eliminar", "Eliminar población", JOptionPane.QUESTION_MESSAGE, null, nombresPoblaciones, nombresPoblaciones[0]);
+                if (nombrePoblacionSeleccionada != null) {
+                    PoblacionBacterias poblacionBacterias = experimento.getPoblacionesBacterias().stream()
+                            .filter(p -> p.getNombre().equals(nombrePoblacionSeleccionada))
+                            .findFirst()
+                            .orElse(null);
+                    if (poblacionBacterias != null) {
+                        experimento.getPoblacionesBacterias().remove(poblacionBacterias);
+                        JOptionPane.showMessageDialog(null, "Población eliminada con éxito!");
+                    }
                 }
                 break;
         }

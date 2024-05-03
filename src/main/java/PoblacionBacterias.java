@@ -18,6 +18,10 @@ public class PoblacionBacterias {
         this.luminosidad = luminosidad;
     }
 
+    public String getNombre() {
+        return this.nombre;
+    }
+
     public void pasarDia(int dia, double cantidadComida) {
         double comidaConsumida = Math.min(cantidadComida, numeroBacterias * COMIDA_POR_BACTERIA);
         cantidadComida -= comidaConsumida;
