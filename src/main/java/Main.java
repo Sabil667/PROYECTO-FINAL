@@ -46,7 +46,8 @@ public class Main {
                         double temperatura = Double.parseDouble(JOptionPane.showInputDialog("Introduce la temperatura:"));
                         String luminosidad = JOptionPane.showInputDialog("Introduce la condición de luminosidad:");
                         double cantidadComida = Double.parseDouble(JOptionPane.showInputDialog("Introduce la cantidad inicial de comida:"));
-                        Experimento experimento = new Experimento(nombreArchivo, nombrePoblacion, numeroBacterias, temperatura, luminosidad, cantidadComida);
+                        int dias = Integer.parseInt(JOptionPane.showInputDialog("Introduce el número de días que durará el experimento:"));
+                        Experimento experimento = new Experimento(nombreArchivo, nombrePoblacion, numeroBacterias, temperatura, luminosidad, cantidadComida, dias);
                         experimentos.add(experimento);
                         JOptionPane.showMessageDialog(null, "Experimento creado con éxito!");
                         break;
