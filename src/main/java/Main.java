@@ -55,6 +55,23 @@ public class Main {
                         Experimento experimentoSeleccionado = (Experimento) JOptionPane.showInputDialog(null, "Selecciona un experimento", "Experimentos", JOptionPane.QUESTION_MESSAGE, null, experimentos.toArray(), experimentos.get(0));
                         if (experimentoSeleccionado != null) {
                             experimentoSeleccionado.realizarExperimento();
+
+                            // Crea una nueva ventana para mostrar los detalles del experimento
+                            JFrame detallesFrame = new JFrame("Detalles del Experimento");
+                            detallesFrame.setSize(500, 300);
+                            detallesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                            // Crea un JTextArea para mostrar los detalles
+                            JTextArea textArea = new JTextArea();
+                            textArea.setText(experimentoSeleccionado.getDetalles());
+                            textArea.setEditable(false);
+
+                            // Añade el JTextArea al JFrame
+                            detallesFrame.add(new JScrollPane(textArea));
+
+                            // Muestra la ventana
+                            detallesFrame.setVisible(true);
+
                             mostrarOpcionesPostExperimento(experimentoSeleccionado);
                         }
                         break;
