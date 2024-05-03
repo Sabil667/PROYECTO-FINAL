@@ -55,10 +55,36 @@ public class Main {
                         Experimento experimentoSeleccionado = (Experimento) JOptionPane.showInputDialog(null, "Selecciona un experimento", "Experimentos", JOptionPane.QUESTION_MESSAGE, null, experimentos.toArray(), experimentos.get(0));
                         if (experimentoSeleccionado != null) {
                             experimentoSeleccionado.realizarExperimento();
+                            mostrarOpcionesPostExperimento(experimentoSeleccionado);
                         }
                         break;
                 }
             }
         });
+    }
+
+    public static void mostrarOpcionesPostExperimento(Experimento experimento) {
+        String[] opciones = {"Añadir población", "Eliminar población"};
+        int seleccion = JOptionPane.showOptionDialog(null, "¿Qué te gustaría hacer?", "Opciones post-experimento",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
+
+        switch (seleccion) {
+            case 0: // Añadir población
+                String nombrePoblacion = JOptionPane.showInputDialog("Introduce el nombre de la nueva población de bacterias:");
+                int numeroBacterias = Integer.parseInt(JOptionPane.showInputDialog("Introduce el número inicial de bacterias:"));
+                double temperatura = Double.parseDouble(JOptionPane.showInputDialog("Introduce la temperatura:"));
+                String luminosidad = JOptionPane.showInputDialog("Introduce la condición de luminosidad:");
+                double cantidadComida = Double.parseDouble(JOptionPane.showInputDialog("Introduce la cantidad inicial de comida:"));
+                experimento.agregarPoblacion(nombrePoblacion, numeroBacterias, temperatura, luminosidad, cantidadComida);
+                JOptionPane.showMessageDialog(null, "Población añadida con éxito!");
+                break;
+            case 1: // Eliminar población
+                PoblacionBacterias poblacionBacterias = (PoblacionBacterias) JOptionPane.showInputDialog(null, "Selecciona una población para eliminar", "Eliminar población", JOptionPane.QUESTION_MESSAGE, null, experimento.getPoblacionesBacterias().toArray(), experimento.getPoblacionesBacterias().get(0));
+                if (poblacionBacterias != null) {
+                    experimento.getPoblacionesBacterias().remove(poblacionBacterias);
+                    JOptionPane.showMessageDialog(null, "Población eliminada con éxito!");
+                }
+                break;
+        }
     }
 }

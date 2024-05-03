@@ -1,11 +1,15 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Experimento {
     private String nombreArchivo;
-    private PoblacionBacterias poblacionBacterias;
+    private List<PoblacionBacterias> poblacionesBacterias;
     private int dias;
 
     public Experimento(String nombreArchivo, String nombrePoblacion, int numeroBacterias, double temperatura, String luminosidad, double cantidadComida, int dias) {
         this.nombreArchivo = nombreArchivo;
-        this.poblacionBacterias = new PoblacionBacterias(nombrePoblacion, numeroBacterias, temperatura, luminosidad, cantidadComida);
+        this.poblacionesBacterias = new ArrayList<>();
+        this.poblacionesBacterias.add(new PoblacionBacterias(nombrePoblacion, numeroBacterias, temperatura, luminosidad, cantidadComida));
         this.dias = dias;
     }
 
@@ -17,12 +21,12 @@ public class Experimento {
         this.nombreArchivo = nombreArchivo;
     }
 
-    public PoblacionBacterias getPoblacionBacterias() {
-        return poblacionBacterias;
+    public List<PoblacionBacterias> getPoblacionesBacterias() {
+        return poblacionesBacterias;
     }
 
-    public void setPoblacionBacterias(PoblacionBacterias poblacionBacterias) {
-        this.poblacionBacterias = poblacionBacterias;
+    public void agregarPoblacion(String nombrePoblacion, int numeroBacterias, double temperatura, String luminosidad, double cantidadComida) {
+        this.poblacionesBacterias.add(new PoblacionBacterias(nombrePoblacion, numeroBacterias, temperatura, luminosidad, cantidadComida));
     }
 
     public int getDias() {
@@ -35,8 +39,10 @@ public class Experimento {
 
     public void realizarExperimento() {
         for (int i = 0; i < dias; i++) {
-            poblacionBacterias.pasarDia(i);
-            System.out.println(); // Imprime una línea en blanco
+            for (PoblacionBacterias poblacionBacterias : poblacionesBacterias) {
+                poblacionBacterias.pasarDia(i);
+                System.out.println(); // Imprime una línea en blanco
+            }
         }
     }
 
