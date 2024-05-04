@@ -65,13 +65,9 @@ public class PoblacionBacterias {
         }
 
         // Devuelve una cadena de texto con los resultados del día
-        return "Día " + dia + ": " + numeroBacterias + " bacterias.";
-    }
-
-    public String toString(int dia, double cantidadComida) {
         return "Día: " + (dia + 1) +
                 "\nNombre de la población de bacterias: " + nombre +
                 "\nNúmero de bacterias: " + numeroBacterias +
-                "\nCantidad de comida: " + cantidadComida;
+                "\nCantidad de comida: " + cantidadComida + "\n";
     }
 }
