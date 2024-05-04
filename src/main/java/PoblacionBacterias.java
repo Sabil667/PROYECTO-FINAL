@@ -22,7 +22,7 @@ public class PoblacionBacterias {
         return this.nombre;
     }
 
-    public void pasarDia(int dia, double cantidadComida) {
+    public String pasarDia(int dia, double cantidadComida) {
         double comidaConsumida = Math.min(cantidadComida, numeroBacterias * COMIDA_POR_BACTERIA);
         cantidadComida -= comidaConsumida;
 
@@ -64,8 +64,8 @@ public class PoblacionBacterias {
             numeroBacterias += crecimientoDiario;
         }
 
-        // Imprime el estado de la población de bacterias
-        System.out.println(toString(dia, cantidadComida));
+        // Devuelve una cadena de texto con los resultados del día
+        return "Día " + dia + ": " + numeroBacterias + " bacterias.";
     }
 
     public String toString(int dia, double cantidadComida) {
