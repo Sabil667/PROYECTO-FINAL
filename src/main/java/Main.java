@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -52,6 +50,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String opcionSeleccionada = (String) comboBox.getSelectedItem();
+                final int[] returnValue = new int[1];
                 switch (opcionSeleccionada) {
                     case "Crear Experimento":
                         String nombreArchivo = JOptionPane.showInputDialog("Introduce el nombre del archivo para el experimento:");
@@ -100,8 +99,8 @@ public class Main {
                         break;
                     case "Abrir archivo":
                         JFileChooser fileChooser = new JFileChooser();
-                        int returnValue = fileChooser.showOpenDialog(null);
-                        if (returnValue == JFileChooser.APPROVE_OPTION) {
+                        returnValue[0] = fileChooser.showOpenDialog(null);
+                        if (returnValue[0] == JFileChooser.APPROVE_OPTION) {
                             try {
                                 // Crea un BufferedReader para leer el archivo
                                 BufferedReader reader = new BufferedReader(new FileReader(fileChooser.getSelectedFile()));
@@ -162,8 +161,8 @@ public class Main {
                                     public void actionPerformed(ActionEvent e) {
                                         JFileChooser saveFileChooser = new JFileChooser();
                                         saveFileChooser.setCurrentDirectory(new File(DIRECTORY));
-                                        int returnValue = saveFileChooser.showSaveDialog(null);
-                                        if (returnValue == JFileChooser.APPROVE_OPTION) {
+                                        returnValue[0] = saveFileChooser.showSaveDialog(null);
+                                        if (returnValue[0] == JFileChooser.APPROVE_OPTION) {
                                             try {
                                                 // Crea un FileWriter para escribir en el archivo
                                                 FileWriter writer = new FileWriter(saveFileChooser.getSelectedFile().getAbsolutePath());
@@ -189,8 +188,8 @@ public class Main {
                         JFileChooser directoryChooser = new JFileChooser();
                         directoryChooser.setCurrentDirectory(new File(DIRECTORY));
                         directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                        int returnValue = directoryChooser.showOpenDialog(null);
-                        if (returnValue == JFileChooser.APPROVE_OPTION) {
+                        returnValue[0] = directoryChooser.showOpenDialog(null);
+                        if (returnValue[0] == JFileChooser.APPROVE_OPTION) {
                             File directory = directoryChooser.getSelectedFile();
                             File[] files = directory.listFiles();
                             if (files != null) {
