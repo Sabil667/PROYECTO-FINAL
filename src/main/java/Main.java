@@ -3,11 +3,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,6 +12,7 @@ import java.util.stream.Collectors;
 public class Main {
     public static List<Experimento> experimentos = new ArrayList<>();
     private static final String DIRECTORY = "saved_files";
+    private static List<File> savedFiles = new ArrayList<>(); // Lista para guardar los archivos
 
     public static void main(String[] args) {
         // Crear un experimento por defecto
@@ -51,7 +48,6 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String opcionSeleccionada = (String) comboBox.getSelectedItem();
-                final int[] returnValue = new int[1];
                 switch (opcionSeleccionada) {
                     case "Crear Experimento":
                         String nombreArchivo = JOptionPane.showInputDialog("Introduce el nombre del archivo para el experimento:");
@@ -123,6 +119,7 @@ public class Main {
                                     FileWriter writer = new FileWriter(fileName);
                                     writer.write(textArea.getText());
                                     writer.close();
+                                    savedFiles.add(new File(fileName)); // Añade el archivo a la lista de archivos guardados
                                 } catch (IOException ioException) {
                                     ioException.printStackTrace();
                                 }
@@ -140,6 +137,7 @@ public class Main {
                                         FileWriter writer = new FileWriter(saveFileChooser.getSelectedFile().getAbsolutePath());
                                         writer.write(textArea.getText());
                                         writer.close();
+                                        savedFiles.add(saveFileChooser.getSelectedFile()); // Añade el archivo a la lista de archivos guardados
                                     } catch (IOException ioException) {
                                         ioException.printStackTrace();
                                     }
@@ -150,35 +148,28 @@ public class Main {
                         editorFrame.setVisible(true);
                         break;
                     case "Ver archivos":
-                        JFileChooser directoryChooser = new JFileChooser();
-                        directoryChooser.setCurrentDirectory(new File(DIRECTORY));
-                        directoryChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                        directoryChooser.setFileFilter(new FileNameExtensionFilter("Text Files", "txt"));
-                        returnValue[0] = directoryChooser.showOpenDialog(null);
-                        if (returnValue[0] == JFileChooser.APPROVE_OPTION) {
-                            File file = directoryChooser.getSelectedFile();
-                            if (file != null) {
-                                try {
-                                    BufferedReader reader = new BufferedReader(new FileReader(file));
-                                    StringBuilder content = new StringBuilder();
-                                    String line;
-                                    while ((line = reader.readLine()) != null) {
-                                        content.append(line).append("\n");
-                                    }
-                                    reader.close();
-
-                                    JFrame fileFrame = new JFrame("Archivo: " + file.getName());
-                                    fileFrame.setSize(500, 300);
-                                    fileFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-                                    JTextArea fileContent = new JTextArea();
-                                    fileContent.setText(content.toString());
-
-                                    fileFrame.add(new JScrollPane(fileContent));
-                                    fileFrame.setVisible(true);
-                                } catch (IOException ioException) {
-                                    ioException.printStackTrace();
+                        // Muestra los archivos guardados en lugar de abrir un JFileChooser
+                        for (File file : savedFiles) {
+                            try {
+                                BufferedReader reader = new BufferedReader(new FileReader(file));
+                                StringBuilder content = new StringBuilder();
+                                String line;
+                                while ((line = reader.readLine()) != null) {
+                                    content.append(line).append("\n");
                                 }
+                                reader.close();
+
+                                JFrame fileFrame = new JFrame("Archivo: " + file.getName());
+                                fileFrame.setSize(500, 300);
+                                fileFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                                JTextArea fileContent = new JTextArea();
+                                fileContent.setText(content.toString());
+
+                                fileFrame.add(new JScrollPane(fileContent));
+                                fileFrame.setVisible(true);
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
                             }
                         }
                         break;
