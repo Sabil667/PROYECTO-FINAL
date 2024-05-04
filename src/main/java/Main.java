@@ -33,7 +33,7 @@ public class Main {
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         panel.add(titulo, gbc);
 
-        String[] opciones = {"Crear Experimento", "Ver Experimentos"};
+        String[] opciones = {"Crear Experimento", "Ver información de Población"};
         JComboBox<String> comboBox = new JComboBox<>(opciones);
 
         panel.add(comboBox, gbc);
@@ -55,7 +55,7 @@ public class Main {
                         experimentos.add(experimento);
                         JOptionPane.showMessageDialog(null, "Experimento creado con éxito!");
                         break;
-                    case "Ver Experimentos":
+                    case "Ver información de Población":
                         Experimento experimentoSeleccionado = (Experimento) JOptionPane.showInputDialog(null, "Selecciona un experimento", "Experimentos", JOptionPane.QUESTION_MESSAGE, null, experimentos.toArray(), experimentos.get(0));
                         if (experimentoSeleccionado != null) {
                             String resultadosExperimento = experimentoSeleccionado.realizarExperimento();
