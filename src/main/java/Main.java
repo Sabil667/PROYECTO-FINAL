@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     public static List<Experimento> experimentos = new ArrayList<>();
@@ -33,7 +34,7 @@ public class Main {
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         panel.add(titulo, gbc);
 
-        String[] opciones = {"Crear Experimento", "Ver información de Población"};
+        String[] opciones = {"Crear Experimento", "Ver información de Población", "Ver nombre de las poblaciones"};
         JComboBox<String> comboBox = new JComboBox<>(opciones);
 
         panel.add(comboBox, gbc);
@@ -42,6 +43,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String opcionSeleccionada = (String) comboBox.getSelectedItem();
+                Experimento experimentoSeleccionado;
                 switch (opcionSeleccionada) {
                     case "Crear Experimento":
                         String nombreArchivo = JOptionPane.showInputDialog("Introduce el nombre del archivo para el experimento:");
@@ -56,7 +58,7 @@ public class Main {
                         JOptionPane.showMessageDialog(null, "Experimento creado con éxito!");
                         break;
                     case "Ver información de Población":
-                        Experimento experimentoSeleccionado = (Experimento) JOptionPane.showInputDialog(null, "Selecciona un experimento", "Experimentos", JOptionPane.QUESTION_MESSAGE, null, experimentos.toArray(), experimentos.get(0));
+                        experimentoSeleccionado = (Experimento) JOptionPane.showInputDialog(null, "Selecciona un experimento", "Experimentos", JOptionPane.QUESTION_MESSAGE, null, experimentos.toArray(), experimentos.get(0));
                         if (experimentoSeleccionado != null) {
                             String resultadosExperimento = experimentoSeleccionado.realizarExperimento();
 
@@ -77,6 +79,15 @@ public class Main {
                             resultadosFrame.setVisible(true);
 
                             mostrarOpcionesPostExperimento(experimentoSeleccionado, textArea);
+                        }
+                        break;
+                    case "Ver nombre de las poblaciones":
+                        experimentoSeleccionado = (Experimento) JOptionPane.showInputDialog(null, "Selecciona un experimento", "Experimentos", JOptionPane.QUESTION_MESSAGE, null, experimentos.toArray(), experimentos.get(0));
+                        if (experimentoSeleccionado != null) {
+                            String nombresPoblaciones = experimentoSeleccionado.getPoblacionesBacterias().stream()
+                                    .map(PoblacionBacterias::getNombre)
+                                    .collect(Collectors.joining("\n"));
+                            JOptionPane.showMessageDialog(null, nombresPoblaciones, "Nombres de Poblaciones de Bacterias", JOptionPane.INFORMATION_MESSAGE);
                         }
                         break;
                 }
