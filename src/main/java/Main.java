@@ -22,6 +22,7 @@ public class Main {
         // Crear la ventana de bienvenida
         VentanaBienvenida ventanaBienvenida = new VentanaBienvenida();
         ventanaBienvenida.setVisible(true);
+
     }
 
     public static void placeComponents(JPanel panel) {

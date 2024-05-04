@@ -32,8 +32,7 @@ public class VentanaBienvenida extends JFrame {
         JLabel label = new JLabel();
 
         // Carga la imagen
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/bacteria.png"));
-
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/IMAGEN/bacteria.png"));
         // Ajusta la imagen al tamaño del JFrame
         Image image = imageIcon.getImage();
         Image scaledImage = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
