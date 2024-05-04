@@ -23,3 +23,7 @@ Las opciones son las siguientes:
 4.2 Para poder guardar el archivo, justo arriba a la izquierda en el apartado de 'Archivo' hay una flecha hacia abajo que indica que hay mas opciones.Al hacer click en 'Archivo' aparecen dos opciones.La primera la de 'Guardar' que guarda el archivo con un nombre aleatorio y despues de haberlo guardado aparece una ventana pequeña que te indica con que nombre se ha guardado el texto.La segunda opcion es la de 'Guardar Como' en donde el propio usuario elige el nombre con el que quiere guardar el archivo.
 
 5.Ver archivos: Esta opción permite al usuario ver los archivos que se han guardado previamente. Cuando se selecciona esta opción, se verifica si hay archivos guardados. Si hay archivos guardados, se muestra un cuadro de diálogo con una lista de los nombres de los archivos guardados. El usuario puede seleccionar un archivo para abrir. El contenido del archivo seleccionado se lee y se muestra en un nuevo marco
+
+
+
+![PROYECTO-FINAL](https://github.com/Sabil667/PROYECTO-FINAL/assets/146822066/255fbf4a-e6a3-4bca-af6e-4a7a44bd1dc7)
