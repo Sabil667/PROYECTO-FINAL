@@ -14,7 +14,7 @@ Las opciones son las siguientes:
  1.2 Cuando se termina de crear un nuevo experimento, aparece un nuevo cadro de dialogo con dos opciones, la opcion de 'Añadir poblacion' al experimento escogido y la segunda opcion que es la de 'Eliminar una poblacion' del experimento seleccionado.Al añadir una poblacion aparecera el experimento conjunto con las poblaciones cada una indicada por separado, una debajo de otra.
     
 
-2.Ver información de Población: Esta opción permite al usuario ver los resultados de un experimento. Cuando se selecciona esta opción, se muestra un cuadro de diálogo con una lista de los experimentos. El usuario puede seleccionar un experimento para ver sus resultados. Los resultados del experimento se muestran en un nuevo marco.  
+2.Ver información de Población: Esta opción permite al usuario ver los resultados de un experimento. Cuando se selecciona esta opción, se muestra un cuadro de diálogo con una lista de los experimentos. El usuario puede seleccionar un experimento para ver sus resultados. Los resultados del experimento se muestran en una nueva ventana.  
 
 3.Ver nombre de las poblaciones: Esta opción permite al usuario ver los nombres de las poblaciones de bacterias de un experimento. Cuando se selecciona esta opción, se muestra un cuadro de diálogo con una lista de los experimentos. El usuario puede seleccionar un experimento para ver los nombres de sus poblaciones de bacterias.  
 
