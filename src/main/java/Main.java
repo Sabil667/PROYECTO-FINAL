@@ -149,27 +149,32 @@ public class Main {
                         break;
                     case "Ver archivos":
                         // Muestra los archivos guardados en lugar de abrir un JFileChooser
-                        for (File file : savedFiles) {
-                            try {
-                                BufferedReader reader = new BufferedReader(new FileReader(file));
-                                StringBuilder content = new StringBuilder();
-                                String line;
-                                while ((line = reader.readLine()) != null) {
-                                    content.append(line).append("\n");
+                        if (savedFiles.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "No hay archivos guardados.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            File fileToOpen = (File) JOptionPane.showInputDialog(null, "Selecciona un archivo", "Archivos guardados", JOptionPane.QUESTION_MESSAGE, null, savedFiles.toArray(), savedFiles.get(0));
+                            if (fileToOpen != null) {
+                                try {
+                                    BufferedReader reader = new BufferedReader(new FileReader(fileToOpen));
+                                    StringBuilder content = new StringBuilder();
+                                    String line;
+                                    while ((line = reader.readLine()) != null) {
+                                        content.append(line).append("\n");
+                                    }
+                                    reader.close();
+
+                                    JFrame fileFrame = new JFrame("Archivo: " + fileToOpen.getName());
+                                    fileFrame.setSize(500, 300);
+                                    fileFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                                    JTextArea fileContent = new JTextArea();
+                                    fileContent.setText(content.toString());
+
+                                    fileFrame.add(new JScrollPane(fileContent));
+                                    fileFrame.setVisible(true);
+                                } catch (IOException ioException) {
+                                    ioException.printStackTrace();
                                 }
-                                reader.close();
-
-                                JFrame fileFrame = new JFrame("Archivo: " + file.getName());
-                                fileFrame.setSize(500, 300);
-                                fileFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-                                JTextArea fileContent = new JTextArea();
-                                fileContent.setText(content.toString());
-
-                                fileFrame.add(new JScrollPane(fileContent));
-                                fileFrame.setVisible(true);
-                            } catch (IOException ioException) {
-                                ioException.printStackTrace();
                             }
                         }
                         break;
