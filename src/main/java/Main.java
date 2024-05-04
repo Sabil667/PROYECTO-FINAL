@@ -182,8 +182,8 @@ public class Main {
                                         contentTextArea.setText(content);
                                         contentTextArea.setEditable(false);
 
-                                        // Añade el JTextArea al JFrame
-                                        contentFrame.add(new JScrollPane(textArea));
+// Añade el JTextArea al JFrame
+                                        contentFrame.add(new JScrollPane(contentTextArea));
 
                                         // Muestra la ventana
                                         contentFrame.setVisible(true);
