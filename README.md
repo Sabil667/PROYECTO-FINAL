@@ -1,6 +1,6 @@
 Link de mi repositorio: https://github.com/Sabil667/PROYECTO-FINAL.git
 
-En esta primera parte del proyecto final habia que hacer una aplicacion para simular experimentos de crecimiento de poblacion/es de bacterias segun una serie de condicione.
+En esta primera parte del proyecto final habia que hacer una aplicacion para simular experimentos de crecimiento de poblacion/es de bacterias segun una serie de condiciones.
 
 La aplicacion cuenta con las siguientes partes:
 
