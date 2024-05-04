@@ -25,6 +25,7 @@ public class VentanaBienvenida extends JFrame {
 
         // Crea el panel de bienvenida
         JPanel bienvenidaPanel = new JPanel();
+        bienvenidaPanel.setLayout(new BorderLayout());
         panel.add(bienvenidaPanel, "Bienvenida");
 
         // Crea un nuevo JLabel para la imagen
@@ -42,12 +43,11 @@ public class VentanaBienvenida extends JFrame {
         label.setIcon(imageIcon);
 
         // Añade el JLabel al panel de bienvenida
-        bienvenidaPanel.add(label);
+        bienvenidaPanel.add(label, BorderLayout.CENTER);
 
         // Crea un botón para acceder al menú
         JButton menuButton = new JButton("Acceder al Menú");
-        menuButton.setVisible(false); // El botón inicialmente está oculto
-        bienvenidaPanel.add(menuButton);
+        bienvenidaPanel.add(menuButton, BorderLayout.SOUTH);
 
         // Añade un ActionListener al botón
         menuButton.addActionListener(new ActionListener() {
@@ -58,15 +58,10 @@ public class VentanaBienvenida extends JFrame {
             }
         });
 
-        // Muestra el botón después de un tiempo
-        Timer timer = new Timer(5000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menuButton.setVisible(true);
-            }
-        });
-        timer.setRepeats(false); // El timer solo se ejecuta una vez
-        timer.start();
+        // Crea un JLabel para el título
+        JLabel titleLabel = new JLabel("BacterioLab", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        bienvenidaPanel.add(titleLabel, BorderLayout.NORTH);
 
         // Crea el panel del menú
         JPanel menuPanel = new JPanel(new GridBagLayout());
