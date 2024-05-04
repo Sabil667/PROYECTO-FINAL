@@ -9,6 +9,8 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.nio.file.Files;
 
+
+
 public class Main {
     public static List<Experimento> experimentos = new ArrayList<>();
     private static final String DIRECTORY = "saved_files";
@@ -18,6 +20,10 @@ public class Main {
         // Crear un experimento por defecto
         Experimento experimentoPorDefecto = new Experimento("Experimento1", "BAC1", 100, 37.0, "alta", 1000, 30);
         experimentos.add(experimentoPorDefecto);
+
+        // Crear la ventana de bienvenida
+        VentanaBienvenida ventanaBienvenida = new VentanaBienvenida();
+        ventanaBienvenida.setVisible(true);
 
         JFrame frame = new JFrame("Menú");
         frame.setSize(500, 300);
