@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.nio.file.Files;
 
 public class Main {
     public static List<Experimento> experimentos = new ArrayList<>();
@@ -167,7 +168,28 @@ public class Main {
                                         .orElse(null);
 
                                 if (fileToOpen != null) {
-                                    // Aquí va el código para abrir el archivo seleccionado
+                                    try {
+                                        // Lee el contenido del archivo
+                                        String content = new String(Files.readAllBytes(fileToOpen.toPath()));
+
+                                        // Crea un nuevo JFrame para mostrar el contenido
+                                        JFrame contentFrame = new JFrame("Contenido del archivo");
+                                        contentFrame.setSize(500, 300);
+                                        contentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                                        // Crea un JTextArea para mostrar el contenido
+                                        JTextArea contentTextArea = new JTextArea();
+                                        contentTextArea.setText(content);
+                                        contentTextArea.setEditable(false);
+
+                                        // Añade el JTextArea al JFrame
+                                        contentFrame.add(new JScrollPane(textArea));
+
+                                        // Muestra la ventana
+                                        contentFrame.setVisible(true);
+                                    } catch (IOException ioException) {
+                                        ioException.printStackTrace();
+                                    }
                                 }
                             }
                         }
