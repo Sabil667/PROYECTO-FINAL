@@ -97,7 +97,7 @@ public class Main {
                         editorFrame.add(new JScrollPane(textArea));
 
                         JMenuBar menuBar = new JMenuBar();
-                        JMenu menu = new JMenu("Archivo");
+                        JMenu menu = new JMenu("Archivo \u25BC ");
                         JMenuItem saveItem = new JMenuItem("Guardar");
                         JMenuItem saveAsItem = new JMenuItem("Guardar como");
                         menu.add(saveItem);
