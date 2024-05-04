@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -115,11 +114,13 @@ public class Main {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 try {
-                                    String fileName = DIRECTORY + "/file_" + new Random().nextInt(1000) + ".txt";
-                                    FileWriter writer = new FileWriter(fileName);
+                                    String fileName = "file_" + new Random().nextInt(1000) + ".txt";
+                                    File file = new File(DIRECTORY, fileName);
+                                    FileWriter writer = new FileWriter(file);
                                     writer.write(textArea.getText());
                                     writer.close();
-                                    savedFiles.add(new File(fileName)); // Añade el archivo a la lista de archivos guardados
+                                    savedFiles.add(file); // Añade el archivo a la lista de archivos guardados
+                                    JOptionPane.showMessageDialog(null, "Archivo guardado con el nombre: " + fileName, "Archivo Guardado", JOptionPane.INFORMATION_MESSAGE);
                                 } catch (IOException ioException) {
                                     ioException.printStackTrace();
                                 }
