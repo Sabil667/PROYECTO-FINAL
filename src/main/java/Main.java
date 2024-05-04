@@ -5,15 +5,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Main {
     public static List<Experimento> experimentos = new ArrayList<>();
+    private static final String DIRECTORY = "saved_files";
 
     public static void main(String[] args) {
         // Crear un experimento por defecto
@@ -40,7 +43,7 @@ public class Main {
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         panel.add(titulo, gbc);
 
-        String[] opciones = {"Crear Experimento", "Ver información de Población", "Ver nombre de las poblaciones", "Abrir archivo"};
+        String[] opciones = {"Crear Experimento", "Ver información de Población", "Ver nombre de las poblaciones", "Abrir archivo", "Ver archivos"};
         JComboBox<String> comboBox = new JComboBox<>(opciones);
 
         panel.add(comboBox, gbc);
@@ -123,16 +126,26 @@ public class Main {
                                 // Añade el JTextArea al JFrame
                                 fileFrame.add(new JScrollPane(textArea));
 
-                                // Muestra la ventana
-                                fileFrame.setVisible(true);
+                                // Crea un menú para las opciones de guardar
+                                JMenuBar menuBar = new JMenuBar();
+                                JMenu menu = new JMenu("Archivo");
+                                JMenuItem saveItem = new JMenuItem("Guardar");
+                                JMenuItem saveAsItem = new JMenuItem("Guardar como");
+                                menu.add(saveItem);
+                                menu.add(saveAsItem);
+                                menuBar.add(menu);
+                                fileFrame.setJMenuBar(menuBar);
 
-                                // Añade un WindowListener al JFrame para guardar los cambios en el archivo cuando se cierre la ventana
-                                fileFrame.addWindowListener(new WindowAdapter() {
+                                // Añade un ActionListener al ítem de guardar
+                                saveItem.addActionListener(new ActionListener() {
                                     @Override
-                                    public void windowClosing(WindowEvent e) {
+                                    public void actionPerformed(ActionEvent e) {
                                         try {
+                                            // Genera un nombre de archivo aleatorio
+                                            String fileName = DIRECTORY + "/file_" + new Random().nextInt(1000) + ".txt";
+
                                             // Crea un FileWriter para escribir en el archivo
-                                            FileWriter writer = new FileWriter(fileChooser.getSelectedFile());
+                                            FileWriter writer = new FileWriter(fileName);
 
                                             // Escribe el contenido del JTextArea en el archivo
                                             writer.write(textArea.getText());
@@ -142,8 +155,58 @@ public class Main {
                                         }
                                     }
                                 });
+
+                                // Añade un ActionListener al ítem de guardar como
+                                saveAsItem.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        JFileChooser saveFileChooser = new JFileChooser();
+                                        saveFileChooser.setCurrentDirectory(new File(DIRECTORY));
+                                        int returnValue = saveFileChooser.showSaveDialog(null);
+                                        if (returnValue == JFileChooser.APPROVE_OPTION) {
+                                            try {
+                                                // Crea un FileWriter para escribir en el archivo
+                                                FileWriter writer = new FileWriter(saveFileChooser.getSelectedFile().getAbsolutePath());
+
+                                                // Escribe el contenido del JTextArea en el archivo
+                                                writer.write(textArea.getText());
+                                                writer.close();
+                                            } catch (IOException ioException) {
+                                                ioException.printStackTrace();
+                                            }
+                                        }
+                                    }
+                                });
+
+                                // Muestra la ventana
+                                fileFrame.setVisible(true);
                             } catch (IOException ioException) {
                                 ioException.printStackTrace();
+                            }
+                        }
+                        break;
+                    case "Ver archivos":
+                        JFileChooser directoryChooser = new JFileChooser();
+                        directoryChooser.setCurrentDirectory(new File(DIRECTORY));
+                        directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                        int returnValue = directoryChooser.showOpenDialog(null);
+                        if (returnValue == JFileChooser.APPROVE_OPTION) {
+                            File directory = directoryChooser.getSelectedFile();
+                            File[] files = directory.listFiles();
+                            if (files != null) {
+                                StringBuilder fileList = new StringBuilder();
+                                for (File file : files) {
+                                    fileList.append(file.getName()).append("\n");
+                                }
+
+                                JTextArea textArea = new JTextArea(fileList.toString());
+                                textArea.setEditable(false);
+
+                                JFrame fileFrame = new JFrame("Archivos en: " + directory.getName());
+                                fileFrame.setSize(500, 300);
+                                fileFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                fileFrame.add(new JScrollPane(textArea));
+                                fileFrame.setVisible(true);
                             }
                         }
                         break;
