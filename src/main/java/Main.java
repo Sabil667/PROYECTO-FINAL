@@ -29,7 +29,7 @@ public class Main {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel titulo = new JLabel("Menú de Gestión de Datos");
+        JLabel titulo = new JLabel("Menú de BacterioLab");
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         panel.add(titulo, gbc);
 
