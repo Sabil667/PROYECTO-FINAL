@@ -26,4 +26,7 @@ Las opciones son las siguientes:
 
 
 
+--UML--
+
+
 ![PROYECTO-FINAL](https://github.com/Sabil667/PROYECTO-FINAL/assets/146822066/255fbf4a-e6a3-4bca-af6e-4a7a44bd1dc7)
