@@ -115,6 +115,10 @@ public class Main {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 try {
+                                    File directory = new File(DIRECTORY);
+                                    if (!directory.exists()) {
+                                        directory.mkdir(); // Crea el directorio si no existe
+                                    }
                                     String fileName = "file_" + new Random().nextInt(1000) + ".txt";
                                     File file = new File(DIRECTORY, fileName);
                                     FileWriter writer = new FileWriter(file);
@@ -182,7 +186,7 @@ public class Main {
                                         contentTextArea.setText(content);
                                         contentTextArea.setEditable(false);
 
-// Añade el JTextArea al JFrame
+                                        // Añade el JTextArea al JFrame
                                         contentFrame.add(new JScrollPane(contentTextArea));
 
                                         // Muestra la ventana
