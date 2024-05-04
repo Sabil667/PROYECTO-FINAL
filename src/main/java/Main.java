@@ -9,6 +9,10 @@ public class Main {
     public static List<Experimento> experimentos = new ArrayList<>();
 
     public static void main(String[] args) {
+        // Crear un experimento por defecto
+        Experimento experimentoPorDefecto = new Experimento("Experimento1", "BAC1", 100, 37.0, "alta", 1000, 30);
+        experimentos.add(experimentoPorDefecto);
+
         JFrame frame = new JFrame("Menú");
         frame.setSize(500, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
