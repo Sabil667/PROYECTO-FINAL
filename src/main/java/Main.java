@@ -152,28 +152,21 @@ public class Main {
                         if (savedFiles.isEmpty()) {
                             JOptionPane.showMessageDialog(null, "No hay archivos guardados.", "Información", JOptionPane.INFORMATION_MESSAGE);
                         } else {
-                            File fileToOpen = (File) JOptionPane.showInputDialog(null, "Selecciona un archivo", "Archivos guardados", JOptionPane.QUESTION_MESSAGE, null, savedFiles.toArray(), savedFiles.get(0));
-                            if (fileToOpen != null) {
-                                try {
-                                    BufferedReader reader = new BufferedReader(new FileReader(fileToOpen));
-                                    StringBuilder content = new StringBuilder();
-                                    String line;
-                                    while ((line = reader.readLine()) != null) {
-                                        content.append(line).append("\n");
-                                    }
-                                    reader.close();
+                            // Crea una lista de nombres de archivos
+                            List<String> fileNames = savedFiles.stream()
+                                    .map(File::getName) // Usa el método getName() para obtener solo el nombre del archivo
+                                    .collect(Collectors.toList());
 
-                                    JFrame fileFrame = new JFrame("Archivo: " + fileToOpen.getName());
-                                    fileFrame.setSize(500, 300);
-                                    fileFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                            String fileNameToOpen = (String) JOptionPane.showInputDialog(null, "Selecciona un archivo", "Archivos guardados", JOptionPane.QUESTION_MESSAGE, null, fileNames.toArray(), fileNames.get(0));
+                            if (fileNameToOpen != null) {
+                                // Encuentra el archivo correspondiente en la lista de archivos guardados
+                                File fileToOpen = savedFiles.stream()
+                                        .filter(file -> file.getName().equals(fileNameToOpen))
+                                        .findFirst()
+                                        .orElse(null);
 
-                                    JTextArea fileContent = new JTextArea();
-                                    fileContent.setText(content.toString());
-
-                                    fileFrame.add(new JScrollPane(fileContent));
-                                    fileFrame.setVisible(true);
-                                } catch (IOException ioException) {
-                                    ioException.printStackTrace();
+                                if (fileToOpen != null) {
+                                    // Aquí va el código para abrir el archivo seleccionado
                                 }
                             }
                         }
