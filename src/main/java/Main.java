@@ -9,8 +9,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.nio.file.Files;
 
-
-
 public class Main {
     public static List<Experimento> experimentos = new ArrayList<>();
     private static final String DIRECTORY = "saved_files";
@@ -24,19 +22,9 @@ public class Main {
         // Crear la ventana de bienvenida
         VentanaBienvenida ventanaBienvenida = new VentanaBienvenida();
         ventanaBienvenida.setVisible(true);
-
-        JFrame frame = new JFrame("Menú");
-        frame.setSize(500, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JPanel panel = new JPanel(new GridBagLayout());
-        frame.add(panel);
-        placeComponents(panel);
-
-        frame.setVisible(true);
     }
 
-    private static void placeComponents(JPanel panel) {
+    public static void placeComponents(JPanel panel) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
