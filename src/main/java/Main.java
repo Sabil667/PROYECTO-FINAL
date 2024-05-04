@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,7 +40,7 @@ public class Main {
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         panel.add(titulo, gbc);
 
-        String[] opciones = {"Crear Experimento", "Ver información de Población", "Ver nombre de las poblaciones"};
+        String[] opciones = {"Crear Experimento", "Ver información de Población", "Ver nombre de las poblaciones", "Abrir archivo"};
         JComboBox<String> comboBox = new JComboBox<>(opciones);
 
         panel.add(comboBox, gbc);
@@ -43,7 +49,6 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String opcionSeleccionada = (String) comboBox.getSelectedItem();
-                Experimento experimentoSeleccionado;
                 switch (opcionSeleccionada) {
                     case "Crear Experimento":
                         String nombreArchivo = JOptionPane.showInputDialog("Introduce el nombre del archivo para el experimento:");
@@ -58,7 +63,7 @@ public class Main {
                         JOptionPane.showMessageDialog(null, "Experimento creado con éxito!");
                         break;
                     case "Ver información de Población":
-                        experimentoSeleccionado = (Experimento) JOptionPane.showInputDialog(null, "Selecciona un experimento", "Experimentos", JOptionPane.QUESTION_MESSAGE, null, experimentos.toArray(), experimentos.get(0));
+                        Experimento experimentoSeleccionado = (Experimento) JOptionPane.showInputDialog(null, "Selecciona un experimento", "Experimentos", JOptionPane.QUESTION_MESSAGE, null, experimentos.toArray(), experimentos.get(0));
                         if (experimentoSeleccionado != null) {
                             String resultadosExperimento = experimentoSeleccionado.realizarExperimento();
 
@@ -88,6 +93,58 @@ public class Main {
                                     .map(PoblacionBacterias::getNombre)
                                     .collect(Collectors.joining("\n"));
                             JOptionPane.showMessageDialog(null, nombresPoblaciones, "Nombres de Poblaciones de Bacterias", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        break;
+                    case "Abrir archivo":
+                        JFileChooser fileChooser = new JFileChooser();
+                        int returnValue = fileChooser.showOpenDialog(null);
+                        if (returnValue == JFileChooser.APPROVE_OPTION) {
+                            try {
+                                // Crea un BufferedReader para leer el archivo
+                                BufferedReader reader = new BufferedReader(new FileReader(fileChooser.getSelectedFile()));
+
+                                // Lee el contenido del archivo
+                                StringBuilder content = new StringBuilder();
+                                String line;
+                                while ((line = reader.readLine()) != null) {
+                                    content.append(line).append("\n");
+                                }
+                                reader.close();
+
+                                // Crea un nuevo JFrame para mostrar el contenido del archivo
+                                JFrame fileFrame = new JFrame("Archivo: " + fileChooser.getSelectedFile().getName());
+                                fileFrame.setSize(500, 300);
+                                fileFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                                // Crea un JTextArea para mostrar el contenido del archivo
+                                JTextArea textArea = new JTextArea();
+                                textArea.setText(content.toString());
+
+                                // Añade el JTextArea al JFrame
+                                fileFrame.add(new JScrollPane(textArea));
+
+                                // Muestra la ventana
+                                fileFrame.setVisible(true);
+
+                                // Añade un WindowListener al JFrame para guardar los cambios en el archivo cuando se cierre la ventana
+                                fileFrame.addWindowListener(new WindowAdapter() {
+                                    @Override
+                                    public void windowClosing(WindowEvent e) {
+                                        try {
+                                            // Crea un FileWriter para escribir en el archivo
+                                            FileWriter writer = new FileWriter(fileChooser.getSelectedFile());
+
+                                            // Escribe el contenido del JTextArea en el archivo
+                                            writer.write(textArea.getText());
+                                            writer.close();
+                                        } catch (IOException ioException) {
+                                            ioException.printStackTrace();
+                                        }
+                                    }
+                                });
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
                         }
                         break;
                 }
